@@ -1,0 +1,54 @@
+
+
+#ES1
+
+SELECT * FROM public."Clienti"
+Where Nome = 'Mario'
+
+
+#ES2
+
+SELECT Nome, Cognome
+FROM "Clienti"
+WHERE "Anno di Nascita" = 1982;
+
+
+#ES3
+
+SELECT COUNT(*)
+FROM Fatture
+WHERE iva = 20.00;
+
+#ES4
+
+SELECT *
+FROM Prodotti
+WHERE EXTRACT(YEAR FROM DataAttivazione) = 2017
+AND (InProduzione = true OR InCommercio = true);
+
+
+#ES5
+
+SELECT F.*, C.Nome, C.Cognome, C."Anno di Nascita", C.RegioneResidenza
+FROM Fatture F
+JOIN "Clienti" C ON F.idCliente = C.NumeroCliente
+WHERE F.Importo < 1000;
+
+
+#ES7
+
+SELECT EXTRACT(YEAR FROM DataFattura) AS Anno, COUNT(*) AS NumeroFatture
+FROM Fatture
+WHERE Iva = 20.0
+GROUP BY Anno
+ORDER BY Anno;
+
+#ES8
+
+
+SELECT EXTRACT(YEAR FROM DataFattura) AS Anno,
+       COUNT(*) AS NumeroFatture,
+       SUM(Importo) AS SommaImporti
+FROM Fatture
+GROUP BY Anno
+ORDER BY Anno;
